@@ -29,7 +29,7 @@ class MTObject extends BaseObject {
         if ( $app = $this->app ) {
             return $app;
         }
-        $mt = MT::get_instance();
+        $mt = MyMT::get_instance();
         $ctx =& $mt->context();
         if ( $app = $ctx->stash( 'bootstrapper' ) ) {
             $this->app = $app;
