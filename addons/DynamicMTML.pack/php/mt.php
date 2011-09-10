@@ -11,6 +11,7 @@ require_once($mt_root_dir.DIRECTORY_SEPARATOR.'php'.DIRECTORY_SEPARATOR.'mt.php'
 // more beatiful class name....
 class MyMT extends MT{
 
+    private static $_instance = null;
     /***
      * Constructor for MT class.
      * Currently, constructor moved to private method because this class implemented Singleton Design Pattern.
@@ -24,11 +25,18 @@ class MyMT extends MT{
         $this->php_dir = $mt_root_dir . DIRECTORY_SEPARATOR . 'php';
         error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
         try {
-            $this->id = md5(uniqid('MT',true));
+            $this->id = md5(uniqid('MyMT',true));
             $this->init($blog_id, $cfg_file);
         } catch (Exception $e ) {
             throw new MTInitException( $e, $this->debugging );
         }
+    }
+
+    public static function get_instance($blog_id = null, $cfg_file = null) {
+        if (is_null(MyMT::$_instance)) {
+            MyMT::$_instance = new MyMT($blog_id, $cfg_file);
+        }
+        return MyMT::$_instance;
     }
 
     function init($blog_id = null, $cfg_file = null) {

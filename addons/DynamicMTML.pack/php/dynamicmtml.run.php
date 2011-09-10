@@ -17,7 +17,7 @@
         $app->stash( 'no_database', 1 );
         // require_once( $mt_dir . DIRECTORY_SEPARATOR . 'php' . DIRECTORY_SEPARATOR . 'dynamic_mt.php' );
         require_once( $plugin_path . 'mt.php' );
-        $mt = new MT();
+        $mt = new MyMT();
     }
     $include_static   = $app->config( 'DynamicIncludeStatic' );
     $dynamicphpfirst  = $app->config( 'DynamicPHPFirst' );
@@ -123,6 +123,10 @@
     // ========================================
     // Set File and Content_type
     // ========================================
+$root = $blog_site_path;
+$pattern = preg_quote($blog_site_url, '/');
+if ( preg_match( '/' . $pattern . '(.*)/', $request, $matches ) )
+  $request = $matches[1];
     $file = $root . DIRECTORY_SEPARATOR . $request;
     $cache_dir = $app->stash( 'powercms_files_dir' ) . DIRECTORY_SEPARATOR . 'cache';
     // $app->chomp_dir( $cache_dir );
@@ -171,7 +175,7 @@
         //require_once( $mt_dir . DIRECTORY_SEPARATOR . 'php' . DIRECTORY_SEPARATOR . 'mt.php' );
         require_once( 'mt.php' );
         try {
-            $mt = MT::get_instance( $blog_id, $mt_config );
+            $mt = MyMT::get_instance( $blog_id, $mt_config );
         } catch ( MTInitException $e ) {
             $app->run_callbacks( 'mt_init_exception', $mt, $ctx, $args, $e );
             if ( (! isset( $mt ) ) && $require_login ) {

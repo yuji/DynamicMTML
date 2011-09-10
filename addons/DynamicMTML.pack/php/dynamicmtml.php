@@ -110,6 +110,7 @@ class DynamicMTML {
             // $cache = $self . DIRECTORY_SEPARATOR . 'cache';
         }
         $self = $this->root . dirname( $_SERVER[ 'PHP_SELF' ] );
+	$self = $this->root;
         $templates_c = $self . DIRECTORY_SEPARATOR . 'templates_c';
         $cache = $self . DIRECTORY_SEPARATOR . 'cache';
         if (! is_dir( $templates_c ) ) {
@@ -3475,6 +3476,7 @@ class DynamicMTML {
         if (! $template ) {
             $template = $ctx->_get_compile_path( $id );
             $self = $this->root . dirname( $_SERVER[ 'PHP_SELF' ] );
+	    $self = $blog_site_path;
             $template = $self . DIRECTORY_SEPARATOR . $template;
         }
         if ( file_exists( $template ) ) {

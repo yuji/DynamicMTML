@@ -21,6 +21,8 @@
     $extension    = '<$mt:BlogFileExtension encode_php="q"$>';
     $use_cache    = <$mt:BlogDynamicMTMLCache$>;
     $conditional  = <$mt:BlogDynamicMTMLConditional$>;
+    $blog_site_url = '<mt:BlogRelativeURL escape_php="q">';
+    $blog_site_path = '<mt:BlogSitePath escape_php="q">';
     <$mt:TableColumnValue stash="blog" column="is_members" setvar="requires_login"$>
     <mt:If name="requires_login">$require_login = 1;<mt:Else>$require_login = NULL;</mt:Else></mt:If>
     <mt:IfBlogDynamicCache>$dynamic_caching = 1;<mt:Else>$dynamic_caching = NULL;</mt:Else></mt:IfBlogDynamicCache>
